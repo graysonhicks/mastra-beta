@@ -25,8 +25,8 @@ const uploadToS3Step = createStep({
     }
 
     // Use Bun's native S3 client directly
-    const s3File = Bun.s3('my-bucket', inputData.key);
-    await s3File.write(inputData.content);
+    // Bun.s3 is an S3Client instance, use .write() method
+    await Bun.s3.write(`my-bucket/${inputData.key}`, inputData.content);
 
     return {
       success: true,
